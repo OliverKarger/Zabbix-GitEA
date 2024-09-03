@@ -1,0 +1,1345 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: a571c0d144b14fd4a87a9d9b2aa9fcd6
+      name: Templates/Applications
+  templates:
+    - uuid: d533c60df1754b128c6d00c19446c2fa
+      template: 'GitEA by HTTP'
+      name: 'GitEA by HTTP'
+      description: 'GitEA Monitoring using its Prometheus Metrics'
+      groups:
+        - name: Templates/Applications
+      items:
+        - uuid: 11f48a018b7f4364b48ea17a55717b0c
+          name: 'Number of Attachments'
+          type: DEPENDENT
+          key: gitea.attachments
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_attachments
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: abfc28d079bb47a495582c9ae9101299
+          name: 'Operating System Architecture'
+          type: DEPENDENT
+          key: gitea.buildinfo.arch
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_build_info
+                - label
+                - goarch
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: 'operating system'
+        - uuid: 4adfb1ca44d74e84bd6b323340ef0ab3
+          name: 'Go - Version'
+          type: DEPENDENT
+          key: gitea.buildinfo.goversion
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_build_info
+                - label
+                - goversion
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 58195850e5b741a69e79e091ed9e2dd0
+          name: 'Operating System Type'
+          type: DEPENDENT
+          key: gitea.buildinfo.os
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_build_info
+                - label
+                - goos
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: 'operating system'
+        - uuid: cff7e5fa1f334238b1193501b944d367
+          name: Version
+          type: DEPENDENT
+          key: gitea.buildinfo.version
+          value_type: TEXT
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_build_info
+                - label
+                - version
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: version
+        - uuid: c9d559d8bd194e5c90859f25d72f2a50
+          name: 'Number of Comments'
+          type: DEPENDENT
+          key: gitea.comments
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_comments
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: dd663385a62141e0930b1ca682dbd2e8
+          name: 'Number of Follows'
+          type: DEPENDENT
+          key: gitea.follows
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_follows
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: cead99e63a4840688ccc07fa9aa7408d
+          name: 'Go - Running GoRoutines'
+          type: DEPENDENT
+          key: gitea.go.goroutines
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_goroutines
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 3fdf8284ae474909ac20050113ed8e50
+          name: 'Go - Number of bytes used by the profiling bucket hash table'
+          type: DEPENDENT
+          key: gitea.go.memstats.buck_hash_sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_buck_hash_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: bc06a2d5b6b94a2eb72944832ac6f150
+          name: 'Go - Total number of frees'
+          type: DEPENDENT
+          key: gitea.go.memstats.frees_total
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_frees_total
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 3794bd263ed94ed88882b9eb2d7e460a
+          name: 'Go - Number of bytes used for garbage collection system metadata'
+          type: DEPENDENT
+          key: gitea.go.memstats.gc_sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_gc_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: d946a207e44c413b9ed956b99debaaa4
+          name: 'Go - Number of heap bytes allocated and still in use'
+          type: DEPENDENT
+          key: gitea.go.memstats.heap.alloc_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_heap_alloc_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 8b5d44bc4eaa404187f6b6459865a292
+          name: 'Go - Number of allocated objects'
+          type: DEPENDENT
+          key: gitea.go.memstats.heap.objects
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_heap_objects
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 5efb41e6fdb04e409bcdf12bd0e81b4f
+          name: 'Go - Number of heap bytes released to OS'
+          type: DEPENDENT
+          key: gitea.go.memstats.heap.released_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_heap_released_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 66188c1000f04927956edd815b76428b
+          name: 'Go - Number of heap bytes that are in use'
+          type: DEPENDENT
+          key: gitea.go.memstats.inuse_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_heap_inuse_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: c60ab857350a495ba7370b29c17f818c
+          name: 'Go - Number of seconds since 1970 of last garbage collection'
+          type: DEPENDENT
+          key: gitea.go.memstats.last_gc_time_seconds
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_last_gc_time_seconds
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: d2d5d134687b41c49c882ec43d7d5bda
+          name: 'Go - Total number of mallocs'
+          type: DEPENDENT
+          key: gitea.go.memstats.mallocs
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_mallocs_total
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 70e1187e65d0490e96cfc2ba0b513ede
+          name: 'Go - Number of bytes in use by mcache structures'
+          type: DEPENDENT
+          key: gitea.go.memstats.mcache.inuse_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_mcache_inuse_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 0835406c1f304ae49be4f9a5b0b45424
+          name: 'Go - Number of bytes used for mcache structures obtained from system'
+          type: DEPENDENT
+          key: gitea.go.memstats.mcache.sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_mcache_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: b41ea0582c974082837af93cf90ada53
+          name: 'Go - Number of heap bytes when next garbage collection will take place'
+          type: DEPENDENT
+          key: gitea.go.memstats.next_gc_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_next_gc_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: b334a73313a64349ac88b92dff5a4f7d
+          name: 'Go - Number of bytes used for other system allocations'
+          type: DEPENDENT
+          key: gitea.go.memstats.other_sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_buck_hash_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 82d031a9eca84408a9ac9af35b8064e9
+          name: 'Go - Number of bytes obtained from system for stack allocator'
+          type: DEPENDENT
+          key: gitea.go.memstats.stack.sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_stack_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 390939473b9748478691f7f7719ad4f9
+          name: 'Go - Number of bytes obtained from system'
+          type: DEPENDENT
+          key: gitea.go.memstats.sys_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_memstats_sys_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: 5cb4d1adc9b54243a570f6a53c9ac5a9
+          name: 'Go - Total number of threads'
+          type: DEPENDENT
+          key: gitea.go.threads
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - go_threads
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: golang
+        - uuid: a008c5c8496d43ef94e0a2b6e70b5050
+          name: 'Number of HookTasks'
+          type: DEPENDENT
+          key: gitea.hooktasks
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_hooktasks
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 47e2ef4c954a460a91cffbb7c7cd25fb
+          name: 'Number of Issues'
+          type: DEPENDENT
+          key: gitea.issues
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_issues
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 5cae3edad7e24acfa3ce7d7c1183bfd2
+          name: 'Number of Issues (closed)'
+          type: DEPENDENT
+          key: gitea.issues.closed
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_issues_closed
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 94281612b5fd41eb9fb55e9766fe4016
+          name: 'Number of Issues (open)'
+          type: DEPENDENT
+          key: gitea.issues.open
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_issues_open
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: f8b7e576b3ee4422b08117ff21508736
+          name: 'Number of Labels'
+          type: DEPENDENT
+          key: gitea.labels
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_labels
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 2b7f165cefa048af92f2842a7dc7c4fe
+          name: 'Number of Login Sources'
+          type: DEPENDENT
+          key: gitea.loginsources
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_loginsources
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 88e461baad30490cb2038fc02f394d84
+          name: 'Number of Milestones'
+          type: DEPENDENT
+          key: gitea.milestones
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_milestones
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 03ae7c47ee634f4cab4982af171d0572
+          name: 'Number of OAuth Applications'
+          type: DEPENDENT
+          key: gitea.oauth.apps
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_oauths
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 3cebbba55bf04d489fdc46d5c6484b0f
+          name: 'Number of Organizations'
+          type: DEPENDENT
+          key: gitea.organizations
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_organizations
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 7b600d444fad4d14829fb9109aa90c67
+          name: 'Process - Resident memory size in bytes'
+          type: DEPENDENT
+          key: gitea.process.resident_memory_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - process_resident_memory_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: process
+        - uuid: 9a18c6d903db451aa4a281b98624110f
+          name: 'Process - Start time of the process since unix epoch in seconds'
+          type: DEPENDENT
+          key: gitea.process.start_time_seconds
+          units: s
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - process_start_time_seconds
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: process
+        - uuid: 0656305ae4aa47a4917ca1d8279e341a
+          name: 'Process - Virtual memory size in bytes'
+          type: DEPENDENT
+          key: gitea.process.virtual_memory_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - process_virtual_memory_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: process
+        - uuid: 7a7f72b2e4cd4f5a8b0d5845f926dc8c
+          name: 'Process - Maximum amount of virtual memory available in bytes'
+          type: DEPENDENT
+          key: gitea.process.virtual_memory_max_bytes
+          units: B
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - process_virtual_memory_max_bytes
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: process
+        - uuid: c7ffe781e4534981a78c6cad3d4864f1
+          name: 'Number of Projects'
+          type: DEPENDENT
+          key: gitea.projects
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_projects
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 3b8a2aa171824a609d20244bdbcfbe34
+          name: 'Number of Project Boards'
+          type: DEPENDENT
+          key: gitea.projects.boards
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_projects_boards
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 8c0f62a0c4d4484783f2edb504955436
+          name: 'Get Metrics'
+          type: HTTP_AGENT
+          key: gitea.prometheus.source
+          history: '0'
+          value_type: TEXT
+          description: 'Retrieves Prometheus Metrics from GitEA Server'
+          url: '{$GITEA_INSTANCE_URL}/metrics'
+          tags:
+            - tag: type
+              value: raw
+        - uuid: 1908c7e4591846a2b7c58d0007db65d6
+          name: 'Number of Public Keys'
+          type: DEPENDENT
+          key: gitea.publickeys
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_publickeys
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 2edb21eb7e354e76b4c3678b08319818
+          name: 'Number of Releases'
+          type: DEPENDENT
+          key: gitea.releases
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_releases
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 50543791abb241e2b58efc9640fcbd6f
+          name: 'Number of Repositories'
+          type: DEPENDENT
+          key: gitea.repositories
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_repositories
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 14aa8b60561045eb8f2f17666bed407f
+          name: 'Number of Mirrors'
+          type: DEPENDENT
+          key: gitea.repositories.mirrors
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_mirrors
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 302cc47309a24f19aa4741a607e908f6
+          name: 'Number of Stars'
+          type: DEPENDENT
+          key: gitea.stars
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_stars
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 7da60de9092b4b85984685cb01f12145
+          name: 'Number of UpdateTasks'
+          type: DEPENDENT
+          key: gitea.tasks
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_updatetasks
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 4da8390001d34adf845811c2afb0fa91
+          name: 'Number of Teams'
+          type: DEPENDENT
+          key: gitea.teams
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_teams
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 306732596c4348409f5ae44126067b49
+          name: 'Number of Users'
+          type: DEPENDENT
+          key: gitea.users
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_users
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: 6ff160c8b98f449fa5fbb38106ab7448
+          name: 'Number of Watches'
+          type: DEPENDENT
+          key: gitea.watches
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_watches
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: a786cb68fced4be4aa643708fbfa9840
+          name: 'Number of Webhooks'
+          type: DEPENDENT
+          key: gitea.webhooks
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_webhooks
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+        - uuid: e76749188169468d9fada70bec0c206c
+          name: 'Number of Accesses'
+          type: DEPENDENT
+          key: gitea_accesses
+          preprocessing:
+            - type: PROMETHEUS_PATTERN
+              parameters:
+                - gitea_accesses
+                - value
+                - ''
+          master_item:
+            key: gitea.prometheus.source
+          tags:
+            - tag: scope
+              value: application
+      httptests:
+        - uuid: 64dc2f318d6b447598cd84a63910711e
+          name: 'Web availability'
+          attempts: '3'
+          steps:
+            - name: 'Check HTTP 200 Code'
+              url: '{$GITEA_INSTANCE_URL}'
+              status_codes: '200'
+          tags:
+            - tag: scope
+              value: web
+      tags:
+        - tag: class
+          value: application
+        - tag: target
+          value: gitea
+      macros:
+        - macro: '{$GITEA_INSTANCE_URL}'
+          value: 'https://gitea.example.com'
+          description: 'URL to GitEA Instance'
+      dashboards:
+        - uuid: fd71279ed64641b28f489ef044d4b77b
+          name: 'GitEA Server'
+          pages:
+            - widgets:
+                - type: item
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Version
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.buildinfo.version
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  'y': '2'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Users
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.users
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  'y': '4'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Issues
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.issues
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: svggraph
+                  name: 'Heap Bytes'
+                  'y': '6'
+                  width: '24'
+                  height: '6'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Go - Number of heap bytes allocated and still in use'
+                    - type: STRING
+                      name: ds.1.color
+                      value: FFD54F
+                    - type: STRING
+                      name: ds.1.items.0
+                      value: 'Go - Number of heap bytes released to OS'
+                    - type: STRING
+                      name: ds.2.color
+                      value: 0EC9AC
+                    - type: STRING
+                      name: ds.2.items.0
+                      value: 'Go - Number of heap bytes that are in use'
+                    - type: STRING
+                      name: ds.3.color
+                      value: 524BBC
+                    - type: STRING
+                      name: ds.3.items.0
+                      value: 'Go - Number of heap bytes when next garbage collection will take place'
+                    - type: INTEGER
+                      name: legend_columns
+                      value: '1'
+                    - type: INTEGER
+                      name: legend_lines
+                      value: '4'
+                    - type: STRING
+                      name: reference
+                      value: XAGAD
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: item
+                  x: '10'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: 'Go Version'
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.buildinfo.goversion
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '10'
+                  'y': '2'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Milestones
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.milestones
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '10'
+                  'y': '4'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Repositories
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.repositories
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '20'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Threads
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.go.threads
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '20'
+                  'y': '2'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Projects
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.projects
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '20'
+                  'y': '4'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Organizations
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.organizations
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: svggraph
+                  name: 'Allocated Objects'
+                  x: '24'
+                  'y': '6'
+                  width: '24'
+                  height: '6'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Go - Number of allocated objects'
+                    - type: INTEGER
+                      name: legend
+                      value: '0'
+                    - type: STRING
+                      name: reference
+                      value: DIGWX
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: item
+                  x: '30'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Goroutines
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.go.goroutines
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '30'
+                  'y': '2'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: 'Login Sources'
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.loginsources
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: item
+                  x: '30'
+                  'y': '4'
+                  width: '10'
+                  hide_header: 'YES'
+                  fields:
+                    - type: INTEGER
+                      name: decimal_places
+                      value: '0'
+                    - type: STRING
+                      name: description
+                      value: Mirrors
+                    - type: ITEM
+                      name: itemid.0
+                      value:
+                        host: 'GitEA by HTTP'
+                        key: gitea.repositories.mirrors
+                    - type: INTEGER
+                      name: show.0
+                      value: '1'
+                    - type: INTEGER
+                      name: show.1
+                      value: '2'
+                    - type: INTEGER
+                      name: show.2
+                      value: '4'
+                    - type: INTEGER
+                      name: units_bold
+                      value: '0'
+                    - type: INTEGER
+                      name: units_show
+                      value: '0'
+                - type: svggraph
+                  name: 'Process Memory'
+                  x: '40'
+                  width: '15'
+                  height: '6'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Process - Virtual memory size in bytes'
+                    - type: INTEGER
+                      name: legend
+                      value: '0'
+                    - type: STRING
+                      name: reference
+                      value: LPVHM
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: svggraph
+                  name: 'Allocations / Frees'
+                  x: '48'
+                  'y': '6'
+                  width: '24'
+                  height: '6'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Go - Total number of frees'
+                    - type: STRING
+                      name: ds.1.color
+                      value: FFD54F
+                    - type: STRING
+                      name: ds.1.items.0
+                      value: 'Go - Total number of mallocs'
+                    - type: INTEGER
+                      name: legend_columns
+                      value: '1'
+                    - type: INTEGER
+                      name: legend_lines
+                      value: '2'
+                    - type: STRING
+                      name: reference
+                      value: JFYCA
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
+                - type: svggraph
+                  name: 'Number of Accesses'
+                  x: '55'
+                  width: '17'
+                  height: '6'
+                  fields:
+                    - type: STRING
+                      name: ds.0.color
+                      value: FF465C
+                    - type: INTEGER
+                      name: ds.0.fill
+                      value: '10'
+                    - type: STRING
+                      name: ds.0.items.0
+                      value: 'Number of Accesses'
+                    - type: INTEGER
+                      name: ds.0.missingdatafunc
+                      value: '3'
+                    - type: INTEGER
+                      name: ds.0.transparency
+                      value: '0'
+                    - type: INTEGER
+                      name: ds.0.width
+                      value: '2'
+                    - type: INTEGER
+                      name: legend
+                      value: '0'
+                    - type: STRING
+                      name: reference
+                      value: EARNA
+                    - type: INTEGER
+                      name: righty
+                      value: '0'
